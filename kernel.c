@@ -2,10 +2,10 @@
  * Scott Mann
  * CSE 7343
  * A Simple Kernel that prints "Hello World" at the top-left corner of the screen.
- 
-void printString(int ln, int col, char* message);
 */
 
+void printString(int ln, int col, char* message);
+void printHelloWorld();
 void clearScreen();
 
 int columnCount = 80;
@@ -21,14 +21,13 @@ int main()
 {
 	clearScreen();
 	printHelloWorld();
+	/*printString(5, 5, "Testing...");*/
 }
 
-/*
 void printString(int ln, int col, char* message)
 {
 	return;
 }
-*/
 
 void printHelloWorld()
 {
@@ -71,21 +70,15 @@ void printHelloWorld()
 
 void clearScreen()
 {
-	int i = memoryBase;
+	int i = 0;
 
-	/*
-	for (i=memoryBase; i+=2; i<screenCharCount*2)
+	while (i <= screenCharCount*2)
 	{
-		putInMemory(segmentBase, i, 'A');
-		putInMemory(segmentBase, i+1, colorWhite);
+		putInMemory(segmentBase, memoryBase + i, 'A');
+		putInMemory(segmentBase, memoryBase + i + 1, colorWhite);
+
+		i=i+2;
 	}
-	*/
 
-
-
-	/*
-	putInMemory(0xB000, 0x8140, 'A');
-	putInMemory(0xB000, 0x8141, 0x7);
-	*/
 	return;
 }
