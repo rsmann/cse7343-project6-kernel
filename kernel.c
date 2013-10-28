@@ -4,7 +4,7 @@
  * A Simple Kernel that prints "Hello World" at the top-left corner of the screen.
 */
 
-void printString(int ln, int col, char* message);
+void printString(int ln, int col, int color, char* message);
 void printHelloWorld();
 void clearScreen();
 
@@ -19,13 +19,32 @@ int videoMemoryBase = 0xB8000;
 
 int main()
 {
+	char* message = "Test";
+
 	clearScreen();
 	printHelloWorld();
-	/*printString(5, 5, "Testing...");*/
+	printString(5, 5, 0x7, message);
 }
 
-void printString(int ln, int col, char* message)
+void printString(int ln, int col, int color, char* message)
 {
+	int relativeAddress = 0;
+	int len = 0;
+	int i = 0;
+	char* message2 = "Hello again!";
+
+	relativeAddress = ((columnCount * (ln-1) * 2) + (col*2));
+	len = sizeof(message2)/sizeof(char);
+	len = 12;
+
+	while (i < len)
+	{
+		putInMemory(segmentBase, relativeAddress + i, message2[i/2]);
+		putInMemory(segmentBase, relativeAddress + i + 1, color);
+
+		i = i + 2;
+	}
+
 	return;
 }
 
@@ -81,7 +100,7 @@ void clearScreen()
 		i=i+2;
 	}
 
-	/* Delay before returning to allow the screen to catch up
+	/* Delay before returning to allow the screen to catch up */
 	for (j=0; j++; j<1000)
 	{
 
