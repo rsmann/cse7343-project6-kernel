@@ -71,13 +71,20 @@ void printHelloWorld()
 void clearScreen()
 {
 	int i = 0;
+	int j = 0;
 
-	while (i <= screenCharCount*2)
+	while (i < screenCharCount*2)
 	{
-		putInMemory(segmentBase, memoryBase + i, 'A');
+		putInMemory(segmentBase, memoryBase + i, ' ');
 		putInMemory(segmentBase, memoryBase + i + 1, colorWhite);
 
 		i=i+2;
+	}
+
+	/* Delay before returning to allow the screen to catch up
+	for (j=0; j++; j<1000)
+	{
+
 	}
 
 	return;
